@@ -2,6 +2,7 @@ import { sumar, restar, multiplicar, dividir, areaCirculo, pi } from "./src/modu
 import Alumno from "./src/models/alumno.js";
 import fs from 'fs';
 import url from 'url';
+import { countries, currencies } from 'country-data';
 
 console.log("EJERCICIO 1");
 const texto1 = "sofi";
@@ -61,3 +62,39 @@ function parsearUrl(direccion) {
 }
 let objeto = parsearUrl("https://campus.ort.edu.ar/secundaria/almagro/informatica/tp/2342788/tp-2-primera-practica-en-node");
 console.log(objeto);
+console.log("\n\n");
+
+console.log("EJERCICIO 6");
+function errorDeParseo(link) {
+    try {
+        return parsearUrl(link);
+    } catch (error) {
+        console.error(error);
+    }
+}
+let textoMalo = errorDeParseo("JEJEJEJ");
+console.log(textoMalo);
+console.log("\n\n");
+
+console.log("EJERCICIO 7");
+function obtenerMoneda(pais) {
+    if (!pais) return null;
+    const input = pais.toString().trim();
+    let countryEntry = null;
+    if (input.length === 2) {
+        countryEntry = countries[input.toUpperCase()];
+    }
+    if (!countryEntry) {
+        countryEntry = Object.values(countries).find(c => c.name && c.name.toLowerCase() === input.toLowerCase());
+    }
+    if (!countryEntry) return null;
+    const monedaCodigo = Array.isArray(countryEntry.currencies) ? countryEntry.currencies[0] : countryEntry.currencies;
+    if (!monedaCodigo) return null;
+    const monedaEntry = currencies.all.find(cur => cur.code === monedaCodigo || cur.code === monedaCodigo.toUpperCase());
+    return monedaEntry ? monedaEntry.name : monedaCodigo;
+}
+console.log(obtenerMoneda('AR'));
+console.log(obtenerMoneda('uruguay'));
+console.log("\n\n");
+
+console.log("GRACIAS :)");

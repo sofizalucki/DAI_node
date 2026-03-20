@@ -11,6 +11,8 @@
     "start": "node index.js"
   },
   "dependencies": {
+    "countries-list": "^3.3.0",
+    "country-data": "^0.0.31",
     "cowsay": "^1.6.0"
   }
 }
